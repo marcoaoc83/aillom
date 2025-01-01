@@ -1,0 +1,4 @@
+/* Redefinir o espaçamento entre os itens do menu */
+.fi-sidebar {
+    gap: 0.5rem !important; /* gap-y-2 equivale a 0.5rem */
+}
