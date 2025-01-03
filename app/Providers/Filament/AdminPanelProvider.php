@@ -125,7 +125,7 @@ class AdminPanelProvider extends PanelProvider
                     ->navigationGroup('Configurações')
                     ->navigationLabel('.Env')
                     ->navigationIcon('heroicon-o-cog-8-tooth')
-                    ->navigationSort(1)
+                    ->navigationSort(99)
                     ->authorize(fn () => auth()->check() && auth()->user()->isSuperAdmin())
                     ->slug('env-editor'),
 
