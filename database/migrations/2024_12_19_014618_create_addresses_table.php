@@ -17,14 +17,14 @@ return new class extends Migration
             $table->string('description');
             $table->string('abbreviation', 20)->nullable();
             $table->string('postal_code', 10)->nullable();
-            $table->decimal('latitude', 10, 7)->nullable();
-            $table->decimal('longitude', 10, 7)->nullable();
+            $table->string('latitude', 65)->nullable();
+            $table->string('longitude', 65)->nullable();
             $table->string('ibge_code', 20)->nullable();
-            $table->string('area_code', 4)->nullable();
-            $table->string('country_code', 4)->nullable();
+            $table->integer('area_code')->nullable();
+            $table->integer('country_code')->nullable();
             $table->string('hierarchical_code', 20)->nullable();
             $table->timestamp('created_at')->nullable()->useCurrent();
-            $table->timestamp('updated_at')->useCurrentOnUpdate()->nullable()->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
         });
     }

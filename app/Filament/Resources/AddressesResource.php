@@ -5,17 +5,11 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\AddressesResource\Pages;
 use App\Filament\Resources\AddressesResource\RelationManagers;
 use App\Models\Address;
-use App\Models\Addresses;
-use CodeWithDennis\FilamentSelectTree\SelectTree;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Log;
 
 class AddressesResource extends BaseResource
 {
@@ -41,7 +35,7 @@ class AddressesResource extends BaseResource
                                 $query->where('description', 'like', "%{$search}%")
                                     ->orWhere('postal_code', 'like', "%{$search}%"); // Busca também no postal_code
                             })
-                            ->orderBy('hierarchy_code') // Ordena pelo campo hierarchy_code
+                            ->orderBy('hierarchical_code') // Ordena pelo campo hierarchy_code
                             ->limit(50) // Limita os resultados a 50 registros
                             ->get() // Obtém os registros
                             ->mapWithKeys(fn($address) => [$address->id => $address->full_path]) // Usa o atributo full_path como rótulo
@@ -54,8 +48,8 @@ class AddressesResource extends BaseResource
                 \Filament\Forms\Components\TextInput::make('description')->label('Desrição')->required(),
                 \Filament\Forms\Components\TextInput::make('abbreviation')->label('Abreviatura'),
                 \Filament\Forms\Components\TextInput::make('postal_code')->label('CEP'),
-                \Filament\Forms\Components\TextInput::make('ddd')->label('DDD'),
-                \Filament\Forms\Components\TextInput::make('ddi')->label('DDI')
+                \Filament\Forms\Components\TextInput::make('area_code')->label('DDD'),
+                \Filament\Forms\Components\TextInput::make('country_code')->label('DDI')
             ]),
     ])->columnSpan(12)
         ]);
@@ -65,8 +59,12 @@ class AddressesResource extends BaseResource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('description')->label('Nome'),
-                Tables\Columns\TextColumn::make('postal_code')->label('Abreviatura'),
+                Tables\Columns\TextColumn::make('description')
+                    ->label('Nome')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('postal_code')
+                    ->label('CEP')
+                    ->searchable(),
             ])
             ->filters([
                 //

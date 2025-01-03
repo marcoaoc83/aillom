@@ -38,17 +38,18 @@ class DBuilder extends Model
             $tableName = $record->dbtable;
             DB::statement("ALTER TABLE `{$tableName}` COMMENT = '" . addslashes($json) . "'");
 
-            $result = Artisan::call('make:module', [
+            Artisan::call('make:module', [
                 '--table' => $tableName,
             ]);
-
-
-
+            Artisan::call('config:cache');
+            Artisan::call('route:cache');
+            Artisan::call('view:cache');
             Notification::make()
                 ->title('Módulo gerado com sucesso!')
                 ->success()
                 ->body("A tabela '{$tableName}' foi processada e o módulo foi gerado com sucesso.")
                 ->send();
+
         } catch (\Exception $e) {
             // Notificação de erro
             Notification::make()

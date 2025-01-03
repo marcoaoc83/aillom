@@ -92,6 +92,7 @@ return [
             'filament:clear-cached-components',
             'filament:helpers',
             'filament:upgrade',
+            'filament:optimize',
             'make:filament-cluster',
             'make:filament-exporter',
             'make:filament-issue',

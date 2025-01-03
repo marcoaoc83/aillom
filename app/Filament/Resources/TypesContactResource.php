@@ -21,7 +21,7 @@ class TypesContactResource extends BaseResource
 
     protected static ?string $navigationIcon = 'fas-mail-bulk';
     protected static ?string $label = 'Tipos Contatos';
-
+    protected static ?int $navigationSort = 69;
     public static function form(Forms\Form $form): Forms\Form {
         return $form->schema([
             \Filament\Forms\Components\Tabs::make('Detalhes')->tabs([
@@ -37,7 +37,7 @@ class TypesContactResource extends BaseResource
     {
         return $table
             ->columns([
-                \Filament\Tables\Columns\TextColumn::make('description')->label('Descrição'),
+                \Filament\Tables\Columns\TextColumn::make('description')->label('Descrição')->sortable(),
             ])
             ->filters([
                 //

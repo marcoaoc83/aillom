@@ -10,7 +10,7 @@ class Address extends Model implements AuditableContract {
 
     use Auditable;
 
-    protected $fillable = ['parent_id', 'description', 'abbreviation', 'postal_code', 'area_code', 'country_code'];
+    protected $fillable = ['parent_id', 'description', 'abbreviation', 'postal_code', 'area_code', 'country_code', 'country_code'];
 
     public function parent()
     {

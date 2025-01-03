@@ -22,6 +22,7 @@ class TypesDocumentResource extends BaseResource
 
     protected static ?string $navigationIcon = 'fas-passport';
     protected static ?string $label = 'Tipos Documento';
+    protected static ?int $navigationSort = 79;
 
     public static function form(Forms\Form $form): Forms\Form {
         return $form->schema([
