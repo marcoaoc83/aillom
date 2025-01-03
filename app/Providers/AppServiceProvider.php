@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use Dotswan\FilamentCodeEditor\Fields\CodeEditor;
 use Filament\Facades\Filament;
 
 use HusamTariq\FilamentDatabaseSchedule\FilamentDatabaseSchedulePlugin;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use Illuminate\Support\Facades\Event;

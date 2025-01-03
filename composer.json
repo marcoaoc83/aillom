@@ -10,6 +10,7 @@
         "awcodes/filament-versions": "^2.0",
         "bezhansalleh/filament-shield": "^3.3",
         "codewithdennis/filament-select-tree": "^3.1",
+        "dotswan/filament-code-editor": "^1.1",
         "dotswan/filament-laravel-pulse": "^1.1",
         "dutchcodingcompany/filament-socialite": "^2.3",
         "filament/filament": "^3.2",
@@ -29,6 +30,7 @@
         "socialiteproviders/govbr": "^5.0",
         "socialiteproviders/instagram": "^5.0",
         "socialiteproviders/microsoft-azure": "^5.2",
+        "spatie/laravel-web-tinker": "^1.9",
         "stephenjude/filament-debugger": "^3.1",
         "tapp/filament-auditing": "^3.0",
         "tomatophp/filament-artisan": "^1.1"
