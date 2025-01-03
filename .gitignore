@@ -22,3 +22,4 @@ yarn-error.log
 /.vscode
 /.zed
 database/seeders/sql/dump-cep.sql
+database/seeders/sql/dump-cep.sql
