@@ -21,8 +21,10 @@ class TypesContactResource extends BaseResource
 
     protected static ?string $navigationIcon = 'fas-mail-bulk';
     protected static ?string $label = 'Tipos Contatos';
-    protected static ?int $navigationSort = 69;
-    public static function form(Forms\Form $form): Forms\Form {
+    protected static ?int $navigationSort = 39;
+
+    public static function form(Forms\Form $form): Forms\Form
+    {
         return $form->schema([
             \Filament\Forms\Components\Tabs::make('Detalhes')->tabs([
                 \Filament\Forms\Components\Tabs\Tab::make('Informações')->schema([
@@ -43,7 +45,6 @@ class TypesContactResource extends BaseResource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -52,7 +53,8 @@ class TypesContactResource extends BaseResource
             ]);
     }
 
-    public static function getRelations(): array {
+    public static function getRelations(): array
+    {
         return [
 
         ];

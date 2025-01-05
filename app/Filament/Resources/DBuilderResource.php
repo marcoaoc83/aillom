@@ -324,7 +324,6 @@ class DBuilderResource extends BaseResource
                 Tables\Columns\TextColumn::make('dbtable')->label('Tabela'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
                 Tables\Actions\Action::make('executarFuncao')
                     ->label('Executar')
                     ->icon('heroicon-o-play') // Ícone opcional

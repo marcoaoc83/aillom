@@ -41,9 +41,7 @@ class DBuilder extends Model
             Artisan::call('make:module', [
                 '--table' => $tableName,
             ]);
-            Artisan::call('config:cache');
-            Artisan::call('route:cache');
-            Artisan::call('view:cache');
+
             Notification::make()
                 ->title('Módulo gerado com sucesso!')
                 ->success()

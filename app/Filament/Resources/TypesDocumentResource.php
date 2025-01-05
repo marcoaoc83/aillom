@@ -22,35 +22,37 @@ class TypesDocumentResource extends BaseResource
 
     protected static ?string $navigationIcon = 'fas-passport';
     protected static ?string $label = 'Tipos Documento';
-    protected static ?int $navigationSort = 79;
+    protected static ?int $navigationSort = 49;
 
-    public static function form(Forms\Form $form): Forms\Form {
+    public static function form(Forms\Form $form): Forms\Form
+    {
         return $form->schema([
             \Filament\Forms\Components\Tabs::make('Detalhes')
-    ->tabs([
-        \Filament\Forms\Components\Tabs\Tab::make('Informações')
-            ->schema([
-\Filament\Forms\Components\TextInput::make('description')->label('Descrição')->required()->maxLength(200),
-                \Filament\Forms\Components\Select::make('entity_type')
-                    ->label('Tipo')
-                    ->options(EntityType::toArray())
-                    ->required()
-                    ->native(false)
-                ,
-                \Filament\Forms\Components\TextInput::make('regex')->label('Mascara')
-            ]),
-    ])
+                ->tabs([
+                    \Filament\Forms\Components\Tabs\Tab::make('Informações')
+                        ->schema([
+                            \Filament\Forms\Components\TextInput::make('description')->label('Descrição')->required()->maxLength(200),
+                            \Filament\Forms\Components\Select::make('entity_type')
+                                ->label('Tipo')
+                                ->options(EntityType::toArray())
+                                ->required()
+                                ->native(false),
+                            \Filament\Forms\Components\TextInput::make('regex')->label('Mascara')
+                        ]),
+                ])
         ]);
     }
 
-    public static function table(Tables\Table $table): Tables\Table {
+    public static function table(Tables\Table $table): Tables\Table
+    {
         return $table->columns([
             \Filament\Tables\Columns\TextColumn::make('description')->label('Descrição')->sortable(),
             \Filament\Tables\Columns\TextColumn::make('entity_type')->label('Tipo')->sortable(),
         ]);
     }
 
-    public static function getRelations(): array {
+    public static function getRelations(): array
+    {
         return [
 
         ];

@@ -85,7 +85,6 @@ class GenerateModule extends Command
         }
 
 
-
         // Verificar existência do Filament Resource
         $resourcePath = app_path("Filament/Resources/{$resourceName}.php");
         if (File::exists($resourcePath)) {
@@ -98,7 +97,7 @@ class GenerateModule extends Command
 
         // Atualizar o Resource se ele já existir
         if (File::exists($resourcePath)) {
-            $this->customizeFilamentResource($resourceName, $metadata,$modelName);
+            $this->customizeFilamentResource($resourceName, $metadata, $modelName);
         }
 
         $this->createActionFolder($modelName);
@@ -111,6 +110,7 @@ class GenerateModule extends Command
         $description = DB::selectOne("SELECT TABLE_COMMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = ?", [$table]);
         return json_decode($description->TABLE_COMMENT, true);
     }
+
     private function customizeFilamentResource($resourceName, $metadata, $modelName)
     {
         $path = app_path("Filament/Resources/{$resourceName}.php");
@@ -178,6 +178,123 @@ class GenerateModule extends Command
                         . $default;
                     break;
 
+                case 'multi_select':
+                    $formFields[] = "\Filament\Forms\Components\MultiSelect::make('{$column['name']}')"
+                        . "->label('{$label}')"
+                        . "->options([])"
+                        . ($required ? "->required()" : "")
+                        . ($nullable ? "->nullable()" : "")
+                        . $default;
+                    break;
+
+                case 'radio':
+                    $formFields[] = "\Filament\Forms\Components\Radio::make('{$column['name']}')"
+                        . "->label('{$label}')"
+                        . "->options([])"
+                        . ($required ? "->required()" : "")
+                        . ($nullable ? "->nullable()" : "")
+                        . $default;
+                    break;
+
+                case 'date_picker':
+                    $formFields[] = "\Filament\Forms\Components\DatePicker::make('{$column['name']}')"
+                        . "->label('{$label}')"
+                        . ($required ? "->required()" : "")
+                        . ($nullable ? "->nullable()" : "")
+                        . $default;
+                    break;
+
+                case 'time_picker':
+                    $formFields[] = "\Filament\Forms\Components\TimePicker::make('{$column['name']}')"
+                        . "->label('{$label}')"
+                        . ($required ? "->required()" : "")
+                        . ($nullable ? "->nullable()" : "")
+                        . $default;
+                    break;
+
+                case 'datetime_picker':
+                    $formFields[] = "\Filament\Forms\Components\DateTimePicker::make('{$column['name']}')"
+                        . "->label('{$label}')"
+                        . ($required ? "->required()" : "")
+                        . ($nullable ? "->nullable()" : "")
+                        . $default;
+                    break;
+
+                case 'color_picker':
+                    $formFields[] = "\Filament\Forms\Components\ColorPicker::make('{$column['name']}')"
+                        . "->label('{$label}')"
+                        . ($required ? "->required()" : "")
+                        . ($nullable ? "->nullable()" : "")
+                        . $default;
+                    break;
+
+                case 'key_value':
+                    $formFields[] = "\Filament\Forms\Components\KeyValue::make('{$column['name']}')"
+                        . "->label('{$label}')"
+                        . ($required ? "->required()" : "")
+                        . ($nullable ? "->nullable()" : "")
+                        . $default;
+                    break;
+
+                case 'markdown_editor':
+                    $formFields[] = "\Filament\Forms\Components\MarkdownEditor::make('{$column['name']}')"
+                        . "->label('{$label}')"
+                        . ($required ? "->required()" : "")
+                        . ($nullable ? "->nullable()" : "")
+                        . $default;
+                    break;
+
+                case 'rich_editor':
+                    $formFields[] = "\Filament\Forms\Components\RichEditor::make('{$column['name']}')"
+                        . "->label('{$label}')"
+                        . ($required ? "->required()" : "")
+                        . ($nullable ? "->nullable()" : "")
+                        . $default;
+                    break;
+
+                case 'repeater':
+                    $formFields[] = "\Filament\Forms\Components\Repeater::make('{$column['name']}')"
+                        . "->label('{$label}')"
+                        . "->schema([])"
+                        . ($required ? "->required()" : "")
+                        . ($nullable ? "->nullable()" : "")
+                        . $default;
+                    break;
+
+                case 'builder':
+                    $formFields[] = "\Filament\Forms\Components\Builder::make('{$column['name']}')"
+                        . "->label('{$label}')"
+                        . "->blocks([])"
+                        . ($required ? "->required()" : "")
+                        . ($nullable ? "->nullable()" : "")
+                        . $default;
+                    break;
+
+                case 'tags_input':
+                    $formFields[] = "\Filament\Forms\Components\TagsInput::make('{$column['name']}')"
+                        . "->label('{$label}')"
+                        . ($required ? "->required()" : "")
+                        . ($nullable ? "->nullable()" : "")
+                        . $default;
+                    break;
+
+                case 'hidden':
+                    $formFields[] = "\Filament\Forms\Components\Hidden::make('{$column['name']}')"
+                        . ($nullable ? "->nullable()" : "")
+                        . $default;
+                    break;
+
+                case 'html':
+                    $formFields[] = "\Filament\Forms\Components\Html::make('{$column['name']}')"
+                        . "->label('{$label}')"
+                        . "->html('')";
+                    break;
+
+                case 'view':
+                    $formFields[] = "\Filament\Forms\Components\View::make('{$column['name']}')"
+                        . "->view('')";
+                    break;
+
                 default:
                     $formFields[] = "\Filament\Forms\Components\TextInput::make('{$column['name']}')"
                         . "->label('{$label}')"
@@ -194,7 +311,6 @@ class GenerateModule extends Command
                     . "->label('{$label}')";
             }
         }
-
 
 
         // Gerar Relacionamentos
@@ -239,7 +355,7 @@ class GenerateModule extends Command
         // Substituir o navigationIcon
         $fileContents = preg_replace(
             '/protected static \?string \$navigationIcon = .*?;/',
-            "protected static ?string \$navigationIcon = '".$metadata['icon']."';",
+            "protected static ?string \$navigationIcon = '" . $metadata['icon'] . "';",
             $fileContents
         );
 
@@ -256,6 +372,24 @@ class GenerateModule extends Command
             $fileContents = preg_replace(
                 '/(class\s+\w+\s+extends\s+Resource\s*\{)/',
                 "$1\n\n    protected static ?string \$navigationGroup = '" . addslashes($metadata['navigation_group'] ?? 'Gerenciamento') . "';",
+                $fileContents
+            );
+        }
+
+        if (!preg_match('/protected static \?int \$navigationSort/', $fileContents)) {
+            $navigationSort = $metadata['navigation_sort'] ?? 0;
+            $fileContents = preg_replace(
+                '/(class\s+\w+\s+extends\s+Resource\s*\{)/',
+                "$1\n\n    protected static ?int \$navigationSort = {$navigationSort};",
+                $fileContents
+            );
+        }
+
+        if (!preg_match('/protected static \?string \$label/', $fileContents)) {
+            $label = $metadata['navigation_label'] ?? ucfirst(str_replace('_', ' ', $modelName));
+            $fileContents = preg_replace(
+                '/(class\s+\w+\s+extends\s+Resource\s*\{)/',
+                "$1\n\n    protected static ?string \$label = '" . addslashes($label) . "';",
                 $fileContents
             );
         }

@@ -21,25 +21,29 @@ class TypesAddressResource extends BaseResource
     protected static ?string $label = 'Tipos Endereços';
     protected static ?string $navigationIcon = 'fas-map-location-dot';
     protected static ?int $navigationSort = 59;
-    public static function form(Forms\Form $form): Forms\Form {
+
+    public static function form(Forms\Form $form): Forms\Form
+    {
         return $form->schema([
             \Filament\Forms\Components\Tabs::make('Detalhes')
-    ->tabs([
-        \Filament\Forms\Components\Tabs\Tab::make('Informações')
-            ->schema([
-\Filament\Forms\Components\TextInput::make('description')->label('Descrição')->required()
-            ]),
-    ])
+                ->tabs([
+                    \Filament\Forms\Components\Tabs\Tab::make('Informações')
+                        ->schema([
+                            \Filament\Forms\Components\TextInput::make('description')->label('Descrição')->required()
+                        ]),
+                ])
         ]);
     }
 
-    public static function table(Tables\Table $table): Tables\Table {
+    public static function table(Tables\Table $table): Tables\Table
+    {
         return $table->columns([
             \Filament\Tables\Columns\TextColumn::make('description')->label('Descrição')->sortable()->searchable()
         ]);
     }
 
-    public static function getRelations(): array {
+    public static function getRelations(): array
+    {
         return [
 
         ];
