@@ -261,14 +261,6 @@ class DBuilderResource extends BaseResource
                             Forms\Components\Repeater::make('relationships')
                                 ->label('Relacionamentos')
                                 ->schema([
-                                    Forms\Components\Select::make('type')
-                                        ->label('Tipo')
-                                        ->options([
-                                            'n:n' => 'Muitos para Muitos (n:n)',
-                                            '1:n' => 'Um para Muitos (1:n)',
-                                        ])
-                                        ->required(),
-
                                     Forms\Components\TextInput::make('label')
                                         ->label('Rótulo')
                                         ->required(),
@@ -281,34 +273,8 @@ class DBuilderResource extends BaseResource
                                         })->toArray())
                                         ->searchable()
                                         ->required(),
-
-                                    Forms\Components\Select::make('pivot_table')
-                                        ->label('Tabela Pivô')
-                                        ->options(fn () => collect(DB::select('SHOW TABLES'))->mapWithKeys(function ($table) {
-                                            $tableName = array_values((array) $table)[0];
-                                            return [$tableName => ucfirst(str_replace('_', ' ', $tableName))];
-                                        })->toArray())
-                                        ->searchable()
-                                        ->nullable(),
-
-                                    Forms\Components\Repeater::make('pivot_columns')
-                                        ->label('Colunas da Tabela Pivô')
-                                        ->schema([
-                                            Forms\Components\TextInput::make('name')
-                                                ->label('Nome')
-                                                ->required(),
-
-                                            Forms\Components\TextInput::make('label')
-                                                ->label('Rótulo')
-                                                ->required(),
-                                        ])
-                                        ->defaultItems(0)
-                                        ->minItems(0)
-                                        ->nullable(),
                                 ])
-                                ->defaultItems(0)
-                                ->minItems(0)
-                                ->nullable(),
+
                         ])->extraAttributes([
                             'class' => 'bg-gray-100',
                         ]) ,

@@ -55,55 +55,27 @@ class GenerateModule extends Command
 
         $this->info("Gerando módulo para a tabela '{$table}'...");
 
-        $modelName = Str::studly(Str::singular($table)); // Converte para TypeContact
-        $resourceName = Str::studly(Str::singular($table)) . 'Resource';
+        $modelName = Str::studly(Str::singular($table));
 
+        $this->createFullModule($modelName, $table, $metadata);
 
-        // Verificar existência do Model
-        $modelPath = app_path("Models/{$modelName}.php");
-        if (File::exists($modelPath)) {
-            $this->warn("Model [{$modelName}] já existe. Pulando...");
-        } else {
-            // Criação do Model
-            $this->call('make:model', ['name' => $modelName]);
+        if (!empty($metadata['relationships'])) {
+            foreach ($metadata['relationships'] as $relationship) {
+                $relationTable = $relationship['relation_table'];
+                $relationModelName = Str::studly(Str::singular($relationTable));
 
-            $fillable = collect($metadata['columns'])->pluck('name')->toArray();
-            $fillableString = implode("', '", $fillable);
-            // Adicionar fillable manualmente
-            $modelContents = file_get_contents($modelPath);
-            $fillableBlock = "protected \$fillable = ['{$fillableString}'];\n";
-            $tableBlock = "protected \$table = '{$table}';\n";
-            // Inserir $fillable após a abertura da classe
-            $modelContents = preg_replace(
-                '/class\s+' . $modelName . '\s+extends\s+Model\s*\{/',
-                "class {$modelName} extends Model {\n    {$fillableBlock}  {$tableBlock}",
-                $modelContents
-            );
+                // Criação do model relacionado (submodel)
+                $this->createModelOnly(
+                    $relationModelName,
+                    $relationTable,
+                    $this->getTableDescription($relationTable)
+                );
 
-            file_put_contents($modelPath, $modelContents);
-
+                $this->addRelationshipToModel($modelName, $relationModelName, $relationship);
+            }
         }
-
-
-        // Verificar existência do Filament Resource
-        $resourcePath = app_path("Filament/Resources/{$resourceName}.php");
-        if (File::exists($resourcePath)) {
-            $this->warn("Filament Resource [{$resourceName}] já existe. Sobrescrevendo...");
-            File::delete($resourcePath); // Apaga o arquivo existente
-        }
-
-        // Gerar um novo resource
-        $this->call('make:filament-resource', ['name' => $resourceName]);
-
-        // Atualizar o Resource se ele já existir
-        if (File::exists($resourcePath)) {
-            $this->customizeFilamentResource($resourceName, $metadata, $modelName);
-        }
-
-        $this->createActionFolder($modelName);
-
-        $this->info("Módulo '{$modelName}' gerado com sucesso!");
     }
+
 
     private function getTableDescription($table)
     {
@@ -453,6 +425,95 @@ class GenerateModule extends Command
             $this->info("Pasta de actions '{$modelName}' criada com sucesso.");
         } else {
             $this->warn("A pasta '{$modelName}' já existe.");
+        }
+    }
+    private function createModelOnly($modelName, $table, $metadata)
+    {
+        $modelPath = app_path("Models/{$modelName}.php");
+
+        if (File::exists($modelPath)) {
+            $this->warn("Model [{$modelName}] já existe. Pulando...");
+            return;
+        }
+
+        $this->call('make:model', ['name' => $modelName]);
+
+        $fillable = collect($metadata['columns'])->pluck('name')->toArray();
+        $fillableString = implode("', '", $fillable);
+
+        $modelContents = file_get_contents($modelPath);
+        $fillableBlock = "protected \$fillable = ['{$fillableString}'];\n";
+        $tableBlock = "protected \$table = '{$table}';\n";
+
+        $modelContents = preg_replace(
+            '/class\s+' . $modelName . '\s+extends\s+Model\s*\{/',
+            "class {$modelName} extends Model {\n    {$fillableBlock}    {$tableBlock}",
+            $modelContents
+        );
+
+        file_put_contents($modelPath, $modelContents);
+
+        $this->info("Model '{$modelName}' gerado com sucesso!");
+    }
+
+    private function createFullModule($modelName, $table, $metadata)
+    {
+        $modelPath = app_path("Models/{$modelName}.php");
+
+        if (!File::exists($modelPath)) {
+            $this->call('make:model', ['name' => $modelName]);
+        } else {
+            $this->warn("Model [{$modelName}] já existe.");
+        }
+
+        $resourceName = "{$modelName}Resource";
+        $resourcePath = app_path("Filament/Resources/{$resourceName}.php");
+
+        // Criar ou sobrescrever o Filament Resource
+        $this->call('make:filament-resource', ['name' => $resourceName]);
+
+        if (File::exists($resourcePath)) {
+            $this->customizeFilamentResource($resourceName, $metadata, $modelName);
+        }
+
+        $this->info("Módulo '{$modelName}' gerado com sucesso!");
+    }
+    private function addRelationshipToModel($mainModel, $relationModel, $relationship)
+    {
+        $modelPath = app_path("Models/{$mainModel}.php");
+
+        if (!File::exists($modelPath)) {
+            $this->warn("Model [{$mainModel}] não encontrado. Pulando adição de relacionamento...");
+            return;
+        }
+
+        $relationMethodName = Str::camel(Str::plural($relationModel));
+        $relationClass = "App\\Models\\{$relationModel}";
+
+        // Relacionamento hasMany
+        $relationshipCode = <<<EOD
+
+    public function {$relationMethodName}()
+    {
+        return \$this->hasMany({$relationClass}::class);
+    }
+EOD;
+
+        // Adicionar o relacionamento no final da classe Model
+        $modelContents = file_get_contents($modelPath);
+
+        if (strpos($modelContents, "public function {$relationMethodName}") === false) {
+            $modelContents = preg_replace(
+                '/\}\s*$/',
+                $relationshipCode . "\n}",
+                $modelContents
+            );
+
+            file_put_contents($modelPath, $modelContents);
+
+            $this->info("Relacionamento '{$relationMethodName}' adicionado ao model '{$mainModel}'.");
+        } else {
+            $this->warn("Relacionamento '{$relationMethodName}' já existe no model '{$mainModel}'.");
         }
     }
 
