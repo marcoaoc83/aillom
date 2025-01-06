@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TypesCompanyResource\Pages;
-use App\Filament\Resources\TypesCompanyResource\RelationManagers;
-use App\Models\TypesCompany;
+use App\Filament\Resources\TypesCompanyRelationshipResource\Pages;
+use App\Filament\Resources\TypesCompanyRelationshipResource\RelationManagers;
+use App\Models\TypesCompanyRelationship;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,14 +13,17 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class TypesCompanyResource extends BaseResource
+class TypesCompanyRelationshipResource extends BaseResource
 {
 
+    protected static ?string $label = 'Tipos Vínculo';
+
+    protected static ?int $navigationSort = 99;
+
     protected static ?string $navigationGroup = 'Geral';
-    protected static ?string $model = \App\Models\TypesCompany::class;
-    protected static ?string $label = 'Tipos Empresas';
-    protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
-    protected static ?int $navigationSort = 78;
+    protected static ?string $model = \App\Models\TypesCompanyRelationship::class;
+
+    protected static ?string $navigationIcon = 'heroicon-c-briefcase';
 
     public static function form(Forms\Form $form): Forms\Form {
         return $form->schema([
@@ -28,8 +31,7 @@ class TypesCompanyResource extends BaseResource
     ->tabs([
         \Filament\Forms\Components\Tabs\Tab::make('Informações')
             ->schema([
-\Filament\Forms\Components\TextInput::make('code')->label('Código')->required()->maxLength(10),
-                \Filament\Forms\Components\TextInput::make('description')->label('Descrição')->required()
+\Filament\Forms\Components\TextInput::make('description')->label('Descrição')->required()->maxLength(200)
             ]),
     ])
         ]);
@@ -37,7 +39,6 @@ class TypesCompanyResource extends BaseResource
 
     public static function table(Tables\Table $table): Tables\Table {
         return $table->columns([
-            \Filament\Tables\Columns\TextColumn::make('code')->label('Código')->sortable()->searchable(),
             \Filament\Tables\Columns\TextColumn::make('description')->label('Descrição')->sortable()->searchable()
         ]);
     }
@@ -51,9 +52,9 @@ class TypesCompanyResource extends BaseResource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTypesCompanies::route('/'),
-            'create' => Pages\CreateTypesCompany::route('/create'),
-            'edit' => Pages\EditTypesCompany::route('/{record}/edit'),
+            'index' => Pages\ListTypesCompanyRelationships::route('/'),
+            'create' => Pages\CreateTypesCompanyRelationship::route('/create'),
+            'edit' => Pages\EditTypesCompanyRelationship::route('/{record}/edit'),
         ];
     }
 }

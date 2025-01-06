@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Actions\Global\AtualizarPagina;
+use App\Filament\Actions\Global\LimparCache;
 use App\Filament\Resources\DBuilderResource\Pages;
 //use App\Filament\Resources\DBuilderResource\RelationManagers;
 use App\Models\DBuilder;
@@ -329,6 +331,8 @@ class DBuilderResource extends BaseResource
                     ->icon('heroicon-o-play') // Ícone opcional
                     ->action(function (Model $record) {
                         $record->gerarModulos($record);
+                        LimparCache::handle();
+                        AtualizarPagina::handle();
                         session()->flash('success', 'Função executada com sucesso!');
                     })
                     ->requiresConfirmation() // Requer confirmação antes de executar

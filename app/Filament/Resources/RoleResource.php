@@ -115,7 +115,6 @@ class RoleResource extends BaseResource implements HasShieldPermissions
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

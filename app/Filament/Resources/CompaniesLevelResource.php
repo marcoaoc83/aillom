@@ -39,7 +39,7 @@ class CompaniesLevelResource extends BaseResource
 
     public static function table(Tables\Table $table): Tables\Table {
         return $table->columns([
-            \Filament\Tables\Columns\TextColumn::make('description')->label('Descrição')
+            \Filament\Tables\Columns\TextColumn::make('description')->label('Descrição')->sortable()->searchable()
         ]);
     }
 

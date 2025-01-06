@@ -39,7 +39,7 @@ class TypesContactResource extends BaseResource
     {
         return $table
             ->columns([
-                \Filament\Tables\Columns\TextColumn::make('description')->label('Descrição')->sortable(),
+                \Filament\Tables\Columns\TextColumn::make('description')->label('Descrição')->sortable()->searchable(),
             ])
             ->filters([
                 //

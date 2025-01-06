@@ -46,8 +46,8 @@ class TypesDocumentResource extends BaseResource
     public static function table(Tables\Table $table): Tables\Table
     {
         return $table->columns([
-            \Filament\Tables\Columns\TextColumn::make('description')->label('Descrição')->sortable(),
-            \Filament\Tables\Columns\TextColumn::make('entity_type')->label('Tipo')->sortable(),
+            \Filament\Tables\Columns\TextColumn::make('description')->label('Descrição')->sortable()->searchable(),
+            \Filament\Tables\Columns\TextColumn::make('entity_type')->label('Tipo')->sortable()->searchable(),
         ]);
     }
 
