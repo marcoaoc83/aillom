@@ -59,21 +59,6 @@ class GenerateModule extends Command
 
         $this->createFullModule($modelName, $table, $metadata);
 
-        if (!empty($metadata['relationships'])) {
-            foreach ($metadata['relationships'] as $relationship) {
-                $relationTable = $relationship['relation_table'];
-                $relationModelName = Str::studly(Str::singular($relationTable));
-
-                // Criação do model relacionado (submodel)
-                $this->createModelOnly(
-                    $relationModelName,
-                    $relationTable,
-                    $this->getTableDescription($relationTable)
-                );
-
-                $this->addRelationshipToModel($modelName, $relationModelName, $relationship);
-            }
-        }
     }
 
 
@@ -284,23 +269,6 @@ class GenerateModule extends Command
             }
         }
 
-
-        // Gerar Relacionamentos
-        $relations = [];
-        if (isset($metadata['relationships'])) {
-            foreach ($metadata['relationships'] as $relationship) {
-                $relationName = $relationship['relationTable'] ?? null;
-                $relationType = $relationship['type'] ?? null;
-
-                if ($relationType === 'n:n') {
-                    $relations[] = "\Filament\\Resources\\RelationManagers\\" . ucfirst(Str::singular($relationName)) . "RelationManager::class";
-                } elseif ($relationType === '1:n') {
-                    $relations[] = "\Filament\\Resources\\RelationManagers\\" . ucfirst($relationName) . "RelationManager::class";
-                }
-            }
-        }
-        $relationManagers = implode(",\n            ", $relations);
-
         // Montar Tabs do Formulário
         $tabs = "\Filament\Forms\Components\Tabs::make('Detalhes')\n"
             . "    ->tabs([\n"
@@ -374,20 +342,6 @@ class GenerateModule extends Command
             $fileContents
         );
 
-        // Substituir ou adicionar o método getRelations
-        if (str_contains($fileContents, 'public static function getRelations(')) {
-            $fileContents = preg_replace(
-                '/public static function getRelations\(.*?\{.*?\}/s',
-                "public static function getRelations(): array {\n        return [\n            {$relationManagers}\n        ];\n    }",
-                $fileContents
-            );
-        } else {
-            $fileContents = preg_replace(
-                '/(class\s+\w+\s+extends\s+Resource\s*\{)/',
-                "$1\n\n    public static function getRelations(): array {\n        return [\n            {$relationManagers}\n        ];\n    }",
-                $fileContents
-            );
-        }
 
         // Substituir ou adicionar o método table
         if (str_contains($fileContents, 'public static function table(')) {
@@ -478,43 +432,6 @@ class GenerateModule extends Command
 
         $this->info("Módulo '{$modelName}' gerado com sucesso!");
     }
-    private function addRelationshipToModel($mainModel, $relationModel, $relationship)
-    {
-        $modelPath = app_path("Models/{$mainModel}.php");
 
-        if (!File::exists($modelPath)) {
-            $this->warn("Model [{$mainModel}] não encontrado. Pulando adição de relacionamento...");
-            return;
-        }
-
-        $relationMethodName = Str::camel(Str::plural($relationModel));
-        $relationClass = "App\\Models\\{$relationModel}";
-
-        // Relacionamento hasMany
-        $relationshipCode = <<<EOD
-
-    public function {$relationMethodName}()
-    {
-        return \$this->hasMany({$relationClass}::class);
-    }
-EOD;
-
-        // Adicionar o relacionamento no final da classe Model
-        $modelContents = file_get_contents($modelPath);
-
-        if (strpos($modelContents, "public function {$relationMethodName}") === false) {
-            $modelContents = preg_replace(
-                '/\}\s*$/',
-                $relationshipCode . "\n}",
-                $modelContents
-            );
-
-            file_put_contents($modelPath, $modelContents);
-
-            $this->info("Relacionamento '{$relationMethodName}' adicionado ao model '{$mainModel}'.");
-        } else {
-            $this->warn("Relacionamento '{$relationMethodName}' já existe no model '{$mainModel}'.");
-        }
-    }
 
 }

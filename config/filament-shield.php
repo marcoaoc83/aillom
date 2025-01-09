@@ -76,7 +76,9 @@ return [
         ],
 
         'resources' => [
-            'DBuilderResource'
+            'DBuilderResource',
+            'AuditResource',
+            'ScheduleResource',
         ]
     ],
 

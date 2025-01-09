@@ -256,7 +256,7 @@ class DBuilderResource extends BaseResource
                         ]),
 
                     // Aba para os relacionamentos
-                    Forms\Components\Tabs\Tab::make('Relacionamentos')
+                    /*Forms\Components\Tabs\Tab::make('Relacionamentos')
                         ->schema([
                             Forms\Components\Repeater::make('relationships')
                                 ->label('Relacionamentos')
@@ -278,7 +278,7 @@ class DBuilderResource extends BaseResource
                         ])->extraAttributes([
                             'class' => 'bg-gray-100',
                         ]) ,
-
+*/
                 ]) ->columnSpan(12),
         ]);
     }

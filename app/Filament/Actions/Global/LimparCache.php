@@ -26,7 +26,7 @@ class LimparCache
 
             foreach ($commands as $command) {
                 exec("php artisan {$command}");
-                Log::info("php artisan {$command}");
+                //Log::info("php artisan {$command}");
             }
 
             Notification::make()
