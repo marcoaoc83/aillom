@@ -38,8 +38,12 @@ class IndividualAddressRelationManager extends RelationManager
                 ->placeholder('Selecione um endereço')
                 ->required()
                 ->columnSpan('full'), // Ocupa toda a largura
-
-            // Segunda Linha: Número e Complemento
+            Forms\Components\Select::make('address_type_id')
+                ->label('Tipo de Endereço')
+                ->relationship('type', 'description') // Relacionamento com a tabela types_address
+                ->searchable()
+                ->placeholder('Selecione o tipo de endereço')
+                ->columnSpan('full'),
             Forms\Components\TextInput::make('number_address')
                 ->label('Número')
                 ->maxLength(20)
@@ -61,15 +65,12 @@ class IndividualAddressRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('address.description')
                     ->label('Endereço')
                     ->sortable(),
-
-                Tables\Columns\TextColumn::make('address.postal_code')
-                    ->label('CEP'),
-
+                Tables\Columns\TextColumn::make('type.description')
+                    ->label('Tipo de Endereço'),
                 Tables\Columns\TextColumn::make('number_address')
                     ->label('Número'),
-
-                Tables\Columns\TextColumn::make('complement')
-                    ->label('Complemento'),
+                Tables\Columns\TextColumn::make('address.postal_code')
+                    ->label('CEP'),
             ])
             ->filters([]) // Adicione filtros se necessário
             ->headerActions([

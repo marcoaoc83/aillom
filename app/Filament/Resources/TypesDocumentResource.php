@@ -37,7 +37,8 @@ class TypesDocumentResource extends BaseResource
                                 ->options(EntityType::toArray())
                                 ->required()
                                 ->native(false),
-                            \Filament\Forms\Components\TextInput::make('regex')->label('Mascara')
+                            \Filament\Forms\Components\TextInput::make('regex')->label('Regex'),
+                            \Filament\Forms\Components\TextInput::make('mask')->label('Mascara')
                         ]),
                 ])
         ]);

@@ -33,6 +33,14 @@ class Individual extends Model
         return $this->belongsTo(IndividualGender::class, 'gender_id');
     }
 
+    public function documents()
+    {
+        return $this->hasMany(IndividualDocument::class, 'individual_id');
+    }
 
+    public function relationships()
+    {
+        return $this->hasMany(IndividualRelationship::class, 'individual_id1');
+    }
 }
 

@@ -110,7 +110,9 @@ class IndividualResource extends BaseResource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\IndividualAddressRelationManager::class
+            RelationManagers\IndividualAddressRelationManager::class,
+            RelationManagers\IndividualDocumentRelationManager::class,
+            RelationManagers\IndividualRelationshipRelationManager::class,
         ];
     }
 

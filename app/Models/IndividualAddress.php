@@ -31,4 +31,9 @@ class IndividualAddress extends Model
     {
         return $this->belongsTo(Address::class, 'address_id');
     }
+
+    public function type()
+    {
+        return $this->belongsTo(TypesAddress::class, 'address_type_id');
+    }
 }
