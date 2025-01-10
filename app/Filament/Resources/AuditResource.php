@@ -15,7 +15,7 @@ class AuditResource extends BaseResource
     protected static ?string $model = Audit::class;
     protected static ?string $navigationLabel = 'Auditoria';
     protected static ?string $navigationIcon = 'heroicon-o-document-magnifying-glass';
-    protected static ?string $navigationGroup = 'Configurações';
+    protected static ?string $navigationGroup = 'Developer';
 
     public static function form(Forms\Form $form): Forms\Form
     {

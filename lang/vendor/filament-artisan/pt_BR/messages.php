@@ -2,7 +2,7 @@
 
 return [
     "title" => "Artisan",
-    "group" => "Configurações",
+    "group" => "Developer",
     "actions" => [
         "output" => "Saída",
     ],

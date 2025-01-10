@@ -120,7 +120,7 @@ class AdminPanelProvider extends PanelProvider
                 ThemesPlugin::make(),
 
                 FilamentEnvEditorPlugin::make()
-                    ->navigationGroup('Configurações')
+                    ->navigationGroup('Developer')
                     ->navigationLabel('.Env')
                     ->navigationIcon('heroicon-o-cog-8-tooth')
                     ->navigationSort(99)
@@ -128,7 +128,7 @@ class AdminPanelProvider extends PanelProvider
                     ->slug('env-editor'),
 
                 DebuggerPlugin::make()
-                    ->navigationGroup(condition: true, label: 'Logs')
+                    ->navigationGroup(condition: true, label: 'Developer')
                     ->horizonNavigation(
                         condition: fn () => auth()->check() && auth()->user()->isSuperAdmin(),
                         label: 'Horizon',
@@ -157,10 +157,10 @@ class AdminPanelProvider extends PanelProvider
                     ->widgetSort(12),
 
                 FilamentLaravelLogPlugin::make()
-                    ->navigationGroup('Logs')
+                    ->navigationGroup('Developer')
                     ->navigationLabel('Logs')
                     ->navigationIcon('heroicon-o-bug-ant')
-                    ->navigationSort(1)
+                    ->navigationSort(-91)
                     ->logDirs([
                         storage_path('logs'),
                     ])

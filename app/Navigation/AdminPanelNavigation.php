@@ -15,7 +15,7 @@ class AdminPanelNavigation
     public static function groups(): array
     {
         return [
-            NavigationGroup::make()->label('Configurações'),
+            NavigationGroup::make()->label('Developer'),
             NavigationGroup::make()->label('Logs'),
         ];
     }
@@ -26,7 +26,7 @@ class AdminPanelNavigation
             // Itens do grupo "Configurações"
             NavigationItem::make('Agendamentos')
                 ->url('/admin/agendador')
-                ->group('Configurações')
+                ->group('Developer')
 
                 ->sort(-1),
 

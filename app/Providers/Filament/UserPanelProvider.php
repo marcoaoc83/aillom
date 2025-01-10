@@ -65,7 +65,7 @@ class UserPanelProvider extends PanelProvider
             ])
             ->plugins([
                 FilamentEnvEditorPlugin::make()
-                    ->navigationGroup('Configurações')
+                    ->navigationGroup('Developer')
                     ->navigationLabel('.Env')
                     ->navigationIcon('heroicon-o-cog-8-tooth')
                     ->navigationSort(1)

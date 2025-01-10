@@ -102,10 +102,43 @@ class IndividualResource extends BaseResource
 
     public static function table(Tables\Table $table): Tables\Table
     {
-        return $table->columns([
-            \Filament\Tables\Columns\TextColumn::make('name')->label('Nome')
-        ]);
+        return $table
+            ->columns([
+                \Filament\Tables\Columns\TextColumn::make('name')->label('Nome'),
+            ])
+            ->filters([
+                Tables\Filters\Filter::make('name')
+                    ->label('Nome')
+                    ->form([
+                        \Filament\Forms\Components\TextInput::make('name')
+                            ->label('Nome'),
+                    ])
+                    ->query(function (Builder $query, array $data) {
+                        return $query->when(
+                            $data['name'] ?? null,
+                            fn ($query, $name) => $query->where('name', 'like', "%{$name}%")
+                        );
+                    }),
+
+                Tables\Filters\Filter::make('documents')
+                    ->label('Documentos')
+                    ->form([
+                        \Filament\Forms\Components\TextInput::make('document_description')
+                            ->label('Documento'),
+                    ])
+                    ->query(function (Builder $query, array $data) {
+                        return $query->when(
+                            $data['document_description'] ?? null,
+                            fn ($query, $document) => $query->whereHas('documents', fn ($q) =>
+                            $q->whereRaw("
+                    REPLACE(REPLACE(REPLACE(REPLACE(description, '.', ''), '-', ''), '/', ''), ' ', '') LIKE ?
+                ", ['%' . str_replace(['.', '-', '/', ' '], '', $document) . '%'])
+                            )
+                        );
+                    }),
+            ]);
     }
+
 
     public static function getRelations(): array
     {

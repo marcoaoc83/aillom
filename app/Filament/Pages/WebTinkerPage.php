@@ -10,7 +10,7 @@ class WebTinkerPage extends Page
     protected static string $view = 'filament.pages.web-tinker-page';
     protected static ?string $title = 'Tinker';
     protected static ?int $navigationSort = 89;
-    protected static ?string $navigationGroup = 'Configurações';
+    protected static ?string $navigationGroup = 'Developer';
 
     public static function canAccess(): bool
     {

@@ -20,7 +20,7 @@ class MigrationManager extends Page implements Forms\Contracts\HasForms
 
     protected static ?string $navigationIcon = 'heroicon-o-circle-stack';
     protected static ?string $navigationLabel = 'Migrations';
-    protected static ?string $navigationGroup = 'Configurações';
+    protected static ?string $navigationGroup = 'Developer';
     protected static string $view = 'filament.pages.migration-manager';
     protected static ?int $navigationSort = 79;
 

@@ -23,7 +23,7 @@ class DBuilderResource extends BaseResource
     protected static ?string $model = DBuilder::class;
     protected static ?string $navigationLabel = 'DBuilder';
     protected static ?string $navigationIcon = 'heroicon-o-cog';
-    protected static ?string $navigationGroup = 'Configurações';
+    protected static ?string $navigationGroup = 'Developer';
 
     public static function form(Form $form): Form
     {

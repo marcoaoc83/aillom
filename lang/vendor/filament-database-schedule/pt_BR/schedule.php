@@ -4,7 +4,7 @@ return [
     'resource'=>[
         'single' => 'Agendador',
         'plural' => 'Agendamentos',
-        'navigation' => 'Configurações',
+        'navigation' => 'Developer',
         'history' => 'Mostrar histórico de execução',
     ],
     'fields' => [
