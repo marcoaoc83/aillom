@@ -107,9 +107,6 @@ class RoleResource extends BaseResource implements HasShieldPermissions
                     ->label(__('filament-shield::filament-shield.column.permissions'))
                     ->counts('permissions')
                     ->colors(['success']),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->label(__('filament-shield::filament-shield.column.updated_at'))
-                    ->dateTime(),
             ])
             ->filters([
                 //

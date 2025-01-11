@@ -29,7 +29,8 @@ class TypesContactResource extends BaseResource
             \Filament\Forms\Components\Tabs::make('Detalhes')->tabs([
                 \Filament\Forms\Components\Tabs\Tab::make('Informações')->schema([
                     \Filament\Forms\Components\TextInput::make('description')->label('Descrição')->required(),
-                    \Filament\Forms\Components\TextInput::make('regex')->label('Mascara')
+                    \Filament\Forms\Components\TextInput::make('regex')->label('Regex'),
+                    \Filament\Forms\Components\TextInput::make('mask')->label('Mascara')
                 ]),
             ])
         ]);

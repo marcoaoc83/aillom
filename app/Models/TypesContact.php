@@ -8,6 +8,6 @@ use OwenIt\Auditing\Auditable;
 class TypesContact extends Model implements AuditableContract {
 
     use Auditable;
-    protected $fillable = ['description', 'regex'];
+    protected $fillable = ['description', 'regex', 'mask'];
     protected $table = 'types_contact';
 }

@@ -144,8 +144,10 @@ class IndividualResource extends BaseResource
     {
         return [
             RelationManagers\IndividualAddressRelationManager::class,
+            RelationManagers\IndividualContactRelationManager::class,
             RelationManagers\IndividualDocumentRelationManager::class,
             RelationManagers\IndividualRelationshipRelationManager::class,
+            RelationManagers\IndividualFileRelationManager::class,
         ];
     }
 

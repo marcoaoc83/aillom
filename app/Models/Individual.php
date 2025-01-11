@@ -42,5 +42,15 @@ class Individual extends Model
     {
         return $this->hasMany(IndividualRelationship::class, 'individual_id1');
     }
+
+    public function contacts()
+    {
+        return $this->hasMany(IndividualContact::class, 'individual_id');
+    }
+
+    public function files()
+    {
+        return $this->hasMany(IndividualFile::class, 'individual_id');
+    }
 }
 

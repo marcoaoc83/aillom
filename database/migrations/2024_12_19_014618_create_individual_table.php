@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('individual', function (Blueprint $table) {
+        Schema::create('individuals', function (Blueprint $table) {
             $table->integer('id', true);
             $table->string('name');
             $table->date('birth_date')->nullable();
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('individual');
+        Schema::dropIfExists('individuals');
     }
 };
