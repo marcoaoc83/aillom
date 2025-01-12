@@ -23,6 +23,8 @@ class User extends Authenticatable implements AuditableContract
      */
     protected $fillable = [
         'name',
+        'login',
+        'individual_id',
         'email',
         'password',
     ];
@@ -63,5 +65,14 @@ class User extends Authenticatable implements AuditableContract
         return $this->hasRole($superAdminRoleName);
     }
 
+    public function individual()
+    {
+        return $this->belongsTo(Individual::class);
+    }
+
+    public function username(): string
+    {
+        return 'login';
+    }
 
 }

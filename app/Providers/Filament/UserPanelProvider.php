@@ -2,7 +2,9 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Auth\Login;
 use App\Filament\VersionProviders\MyVersionProvider;
+use App\Http\Middleware\RedirectBasedOnRole;
 use App\Navigation\AdminPanelNavigation;
 use Awcodes\FilamentVersions\VersionsPlugin;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
@@ -35,7 +37,7 @@ class UserPanelProvider extends PanelProvider
             ->default()
             ->id('user')
             ->path('web')
-            ->login()
+            ->login(Login::class)
             ->spa(true)
             ->colors([
                 'primary' => Color::Amber,
@@ -61,6 +63,7 @@ class UserPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                RedirectBasedOnRole::class,
                 \Hasnayeen\Themes\Http\Middleware\SetTheme::class
             ])
             ->plugins([
@@ -73,14 +76,36 @@ class UserPanelProvider extends PanelProvider
                     ->slug('env-editor'),
                 FilamentSocialitePlugin::make()
                     ->providers([
-                        Provider::make('google')
-                            ->label('Google')
-                            ->icon('fab-google')
-                            ->color(Color::Blue),
                         Provider::make('govbr')
                             ->label('Gov.br')
                             ->icon('heroicon-o-user-group')
-                            ->color(Color::Yellow),
+                            ->color(Color::hex('#009B3A')), // Azul do logotipo Gov.br
+
+                        Provider::make('google')
+                            ->label('Google')
+                            ->icon('fab-google')
+                            ->color(Color::hex('#EA4335')), // Vermelho oficial do Google
+
+
+                        Provider::make('azure')
+                            ->label('Azure')
+                            ->icon('heroicon-o-cloud')
+                            ->color(Color::hex('#0078D4')), // Azul oficial do Microsoft Azure
+
+                        Provider::make('github')
+                            ->label('Github')
+                            ->icon('fab-github')
+                            ->color(Color::hex('#181717')), // Preto do logotipo do GitHub
+
+                        Provider::make('instagram')
+                            ->label('Instagram')
+                            ->icon('fab-instagram')
+                            ->color(Color::hex('#E4405F')), // Rosa principal no degradê do Instagram
+
+                        Provider::make('facebook')
+                            ->label('Facebook')
+                            ->icon('fab-facebook')
+                            ->color(Color::hex('#1877F2')), // Azul oficial do Facebook
                     ])
                     ->registration(true)
                     ->userModelClass(\App\Models\User::class),

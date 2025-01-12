@@ -2,8 +2,10 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Auth\Login;
 use App\Filament\VersionProviders\MyVersionProvider;
 use App\Http\Middleware\IsSuperAdmin;
+use App\Http\Middleware\RedirectBasedOnRole;
 use App\Navigation\AdminPanelNavigation;
 use App\Services\PluginManager;
 use Awcodes\FilamentVersions\VersionsPlugin;
@@ -44,7 +46,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
+            ->login(Login::class)
             ->spa(true)
             ->colors([
                 'primary' => Color::Amber,
@@ -72,6 +74,7 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                RedirectBasedOnRole::class,
                 \Hasnayeen\Themes\Http\Middleware\SetTheme::class
             ])
             ->plugins([

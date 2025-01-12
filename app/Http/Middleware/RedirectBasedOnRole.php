@@ -10,15 +10,16 @@ class RedirectBasedOnRole
     public function handle($request, Closure $next)
     {
         if (Auth::check()) {
-            // Verifique se o usuário é superadmin
-            if (Auth::user()->isSuperAdmin()) {
-                return redirect('/admin');
+            if ($request->is('admin/*') or $request->is('admin')) {
+                if (!Auth::user()->isSuperAdmin()) {
+                    return redirect('/web');
+                }
+            }else{
+                if (Auth::user()->isSuperAdmin()) {
+                    return redirect('/admin');
+                }
             }
-
-            // Caso contrário, redirecione para /web
-            return redirect('/web');
         }
-        return redirect('/web');
         return $next($request);
     }
 }
