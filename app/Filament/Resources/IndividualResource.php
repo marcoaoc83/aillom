@@ -148,6 +148,7 @@ class IndividualResource extends BaseResource
             RelationManagers\IndividualDocumentRelationManager::class,
             RelationManagers\IndividualRelationshipRelationManager::class,
             RelationManagers\IndividualFileRelationManager::class,
+            RelationManagers\UserRelationManager::class,
         ];
     }
 

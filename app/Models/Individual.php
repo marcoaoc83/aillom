@@ -52,5 +52,10 @@ class Individual extends Model
     {
         return $this->hasMany(IndividualFile::class, 'individual_id');
     }
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'individual_id'); // Relacionamento 1:N com users
+    }
 }
 
