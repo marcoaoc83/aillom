@@ -126,19 +126,23 @@ class IndividualResource extends BaseResource
                 Tables\Filters\Filter::make('documents')
                     ->label('Documentos')
                     ->form([
-                        \Filament\Forms\Components\TextInput::make('document_description')
-                            ->label('Documento'),
+                        \Filament\Forms\Components\TextInput::make('document_number')
+                            ->label('Número do Documento'),
                     ])
                     ->query(function (Builder $query, array $data) {
+                        // Verifica se há valor no campo 'document_number'
                         return $query->when(
-                            $data['document_description'] ?? null,
-                            fn ($query, $document) => $query->whereHas('documents', fn ($q) =>
-                            $q->whereRaw("
-                    REPLACE(REPLACE(REPLACE(REPLACE(description, '.', ''), '-', ''), '/', ''), ' ', '') LIKE ?
-                ", ['%' . str_replace(['.', '-', '/', ' '], '', $document) . '%'])
-                            )
+                            $data['document_number'] ?? null,
+                            function (Builder $query, $documentNumber) {
+                                // Remove caracteres indesejados antes de aplicar o filtro
+                                $cleanedNumber = preg_replace('/\D/', '', $documentNumber);
+
+                                $query->whereHas('documents', function (Builder $subQuery) use ($cleanedNumber) {
+                                    $subQuery->where('document_number', 'LIKE', "%{$cleanedNumber}%");
+                                });
+                            }
                         );
-                    }),
+                    })
             ]);
     }
 
