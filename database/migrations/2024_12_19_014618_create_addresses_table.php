@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -26,6 +27,23 @@ return new class extends Migration
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate()->useCurrent();
             $table->softDeletes();
+
+            // Verifica o tipo de banco de dados para definir a coluna gerada corretamente
+            $driver = DB::getDriverName();
+
+            if ($driver === 'mysql') {
+                $table->string('postal_code_numbers')
+                    ->storedAs("REGEXP_REPLACE(postal_code, '[^0-9]', '')"); // MySQL
+            } elseif ($driver === 'pgsql') {
+                $table->string('postal_code_numbers')
+                    ->storedAs("REGEXP_REPLACE(postal_code, '[^0-9]', '', 'g')"); // PostgreSQL
+            } elseif ($driver === 'sqlsrv') {
+                $table->string('postal_code_numbers')
+                    ->storedAs("REPLACE(REPLACE(REPLACE(postal_code, '-', ''), '.', ''), ' ', '')")
+                    ->persisted(); // SQL Server
+            } else {
+                throw new \Exception('Banco de dados não suportado para colunas geradas.');
+            }
         });
     }
 
@@ -37,3 +55,4 @@ return new class extends Migration
         Schema::dropIfExists('addresses');
     }
 };
+

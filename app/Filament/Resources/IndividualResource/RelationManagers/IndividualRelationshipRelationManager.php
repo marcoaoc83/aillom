@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\IndividualResource\RelationManagers;
 
 use App\Filament\Actions\Individual\CriarRelacionamentoInverso;
+use App\Models\Individual;
 use App\Models\IndividualRelationship;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Forms;
@@ -22,6 +23,24 @@ class IndividualRelationshipRelationManager extends RelationManager
                 ->label('Pessoa')
                 ->relationship('relatedIndividual', 'name')
                 ->searchable()
+                ->getSearchResultsUsing(function (string $search): array {
+                    return Individual::query()
+                        ->where('name', 'like', "%{$search}%") // Busca pelo nome
+                        ->orWhereHas('documents', function ($query) use ($search) {
+                            $query->where('document_number', 'like', "%{$search}%"); // Busca no campo de descrição do documento
+                        })
+                        ->orderBy('name') // Ordena por nome
+                        ->limit(50) // Limita a 50 resultados
+                        ->get()
+                        ->mapWithKeys(fn($individual) => [
+                            $individual->id => "{$individual->name}"
+                        ])
+                        ->toArray();
+                })
+                ->getOptionLabelUsing(function ($value): ?string {
+                    $individual = Individual::find($value);
+                    return $individual ? "{$individual->name}" : null;
+                })
                 ->required()
                 ->placeholder('Selecione a pessoa'),
 

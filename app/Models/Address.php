@@ -10,7 +10,7 @@ class Address extends Model implements AuditableContract {
 
     use Auditable;
 
-    protected $fillable = ['parent_id', 'description', 'abbreviation', 'postal_code', 'area_code', 'country_code', 'country_code'];
+    protected $fillable = ['parent_id', 'description', 'abbreviation', 'postal_code', 'area_code', 'country_code', 'postal_code_numbers'];
 
     public function parent()
     {
@@ -48,6 +48,10 @@ class Address extends Model implements AuditableContract {
     {
         // Substitua 'Brasil' por uma lógica dinâmica, como um atributo ou identificação no banco
         return $this->description === 'Brasil' || $this->parent_id !== null;
+    }
+    public function getPostalCodeAttribute($value)
+    {
+        return preg_replace('/\D/', '', $value);
     }
 
 }

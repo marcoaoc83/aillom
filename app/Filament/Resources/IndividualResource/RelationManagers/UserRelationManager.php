@@ -71,7 +71,12 @@ class UserRelationManager extends RelationManager
                 // Defina filtros, se necessário
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                    ->mutateFormDataUsing(function (array $data): array {
+                        $individual = $this->ownerRecord;
+                        $data['name'] = $individual?->name ?? 'Sem Nome';
+                        return $data;
+                }),
             ])
             ->actions([
                 EditAction::make(),

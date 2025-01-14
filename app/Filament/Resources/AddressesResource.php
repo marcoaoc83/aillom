@@ -33,8 +33,12 @@ class AddressesResource extends BaseResource
                                 ->getSearchResultsUsing(function (string $search): array {
                                     return Address::query()
                                         ->where(function ($query) use ($search) {
-                                            $query->where('description', 'like', "%{$search}%")
-                                                ->orWhere('postal_code', 'like', "%{$search}%"); // Busca também no postal_code
+                                            $query->where('description', 'like', "%{$search}%");
+                                            $query->orWhere('postal_code', 'like', "%{$search}%");
+                                            // Adiciona a condição no postal_code apenas se a pesquisa for numérica
+                                            if (preg_match('/^\d+$/', $search)) {
+                                                $query->orWhere('postal_code_numbers', 'like', "%{$search}%");
+                                            }
                                         })
                                         ->orderBy('hierarchical_code') // Ordena pelo campo hierarchy_code
                                         ->limit(50) // Limita os resultados a 50 registros

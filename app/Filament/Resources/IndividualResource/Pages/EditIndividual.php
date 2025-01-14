@@ -26,5 +26,15 @@ class EditIndividual extends EditRecord
     {
         return true;
     }
-
+    protected function mutateRelationshipDataBeforeSaveUsing(array $data): array
+    {
+        if (isset($data['users'])) {
+            foreach ($data['users'] as &$user) {
+                $individual = \App\Models\Individual::find($data['id']);
+                $user['name'] = $individual?->name ?? 'Sem Nome';
+            }
+        }
+        dd($data);
+        return $data;
+    }
 }

@@ -23,8 +23,11 @@ class IndividualAddressRelationManager extends RelationManager
                 ->getSearchResultsUsing(function (string $search): array {
                     return Address::query()
                         ->where(function ($query) use ($search) {
-                            $query->where('description', 'like', "%{$search}%")
-                                ->orWhere('postal_code', 'like', "%{$search}%");
+                            $query->where('description', 'like', "%{$search}%");
+                            $query->orWhere('postal_code', 'like', "%{$search}%");
+                            if (preg_match('/^\d+$/', $search)) {
+                                $query->orWhere('postal_code_numbers', 'like', "%{$search}%");
+                            }
                         })
                         ->orderBy('hierarchical_code')
                         ->limit(50)

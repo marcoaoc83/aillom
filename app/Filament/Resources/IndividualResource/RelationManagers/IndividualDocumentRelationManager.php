@@ -26,19 +26,23 @@ class IndividualDocumentRelationManager extends RelationManager
                 ->afterStateUpdated(function ($state, callable $set) {
                     if ($state) {
                         $mask = TypesDocument::find($state)?->mask;
-                        $set('description_mask', $mask);
+                        $set('number_mask', $mask);
                     }
+                }),
+
+            Forms\Components\TextInput::make('document_number')
+                ->label('Número')
+                ->required()
+                ->maxLength(255)
+                ->mask(fn (callable $get) => $get('number_mask'))
+                ->helperText(function (callable $get) {
+                    $mask = $get('number_mask');
+                    return $mask ? "Formato esperado: {$mask}" : null;
                 }),
 
             Forms\Components\TextInput::make('description')
                 ->label('Descrição')
-                ->required()
-                ->maxLength(255)
-                ->mask(fn (callable $get) => $get('description_mask'))
-                ->helperText(function (callable $get) {
-                    $mask = $get('description_mask');
-                    return $mask ? "Formato esperado: {$mask}" : null;
-                }),
+                ->maxLength(255),
         ]);
     }
 
@@ -51,8 +55,8 @@ class IndividualDocumentRelationManager extends RelationManager
                     ->label('Tipo de Documento')
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('description')
-                    ->label('Descrição')
+                Tables\Columns\TextColumn::make('document_number')
+                    ->label('Número')
                     ->sortable(),
             ])
             ->headerActions([

@@ -55,8 +55,11 @@ class IndividualResource extends BaseResource
                                 ->getSearchResultsUsing(function (string $search): array {
                                     return Address::query()
                                         ->where(function ($query) use ($search) {
-                                            $query->where('description', 'like', "%{$search}%")
-                                                ->orWhere('postal_code', 'like', "%{$search}%");
+                                            $query->where('description', 'like', "%{$search}%");
+
+                                            if (preg_match('/^\d+$/', $search)) {
+                                                $query->orWhere('postal_code', 'like', "%{$search}%");
+                                            }
                                         })
                                         ->orderBy('hierarchical_code') // Ordena pelo campo hierarchy_code
                                         ->limit(50) // Limita os resultados a 50 registros
