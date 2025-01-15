@@ -5,8 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    // Essa rota será redirecionada pelo middleware
-})->middleware('redirect.role');
+    return view('welcome');
+});
 
 
 Route::get('/admin/oauth/callback/govbr', [SocialiteAuthController::class, 'handleGovbrCallback']);

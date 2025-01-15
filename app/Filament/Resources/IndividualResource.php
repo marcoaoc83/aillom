@@ -111,10 +111,6 @@ class IndividualResource extends BaseResource
             ->columns([
                 \Filament\Tables\Columns\TextColumn::make('name')->label('Nome'),
             ])
-            ->headerActions([
-                ExportAction::make()
-                    ->exporter(IndividualExporter::class)
-            ])
             ->filters([
                 Tables\Filters\Filter::make('name')
                     ->label('Nome')
