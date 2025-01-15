@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Exports\IndividualExporter;
 use App\Filament\Resources\IndividualResource\Pages;
 use App\Filament\Resources\IndividualResource\RelationManagers;
 use App\Models\Address;
@@ -10,6 +11,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -108,6 +110,10 @@ class IndividualResource extends BaseResource
         return $table
             ->columns([
                 \Filament\Tables\Columns\TextColumn::make('name')->label('Nome'),
+            ])
+            ->headerActions([
+                ExportAction::make()
+                    ->exporter(IndividualExporter::class)
             ])
             ->filters([
                 Tables\Filters\Filter::make('name')

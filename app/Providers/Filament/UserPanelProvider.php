@@ -66,6 +66,7 @@ class UserPanelProvider extends PanelProvider
                 RedirectBasedOnRole::class,
                 \Hasnayeen\Themes\Http\Middleware\SetTheme::class
             ])
+            ->databaseNotifications()
             ->plugins([
                 FilamentEnvEditorPlugin::make()
                     ->navigationGroup('Developer')

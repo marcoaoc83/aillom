@@ -77,6 +77,7 @@ class AdminPanelProvider extends PanelProvider
                 RedirectBasedOnRole::class,
                 \Hasnayeen\Themes\Http\Middleware\SetTheme::class
             ])
+            ->databaseNotifications()
             ->plugins([
                 FilamentDatabaseSchedulePlugin::make(),
                 FilamentSocialitePlugin::make()
