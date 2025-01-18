@@ -26,4 +26,21 @@ class Company extends Model
     {
         return $this->belongsTo(TypesCompany::class, 'type_company_id', 'id');
     }
+
+    public function addresses()
+    {
+        return $this->hasMany(CompanyAddress::class, 'company_id');
+    }
+    public function files()
+    {
+        return $this->hasMany(CompanyFile::class, 'company_id');
+    }
+    public function documents()
+    {
+        return $this->hasMany(CompanyDocument::class, 'company_id');
+    }
+    public function relationships()
+    {
+        return $this->hasMany(CompanyIndividual::class, 'company_id');
+    }
 }

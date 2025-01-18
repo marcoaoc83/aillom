@@ -58,7 +58,10 @@ class CompanyResource extends BaseResource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\CompanyAddressRelationManager::class,
+            RelationManagers\CompanyDocumentsRelationManager::class,
+            RelationManagers\CompanyFileRelationManager::class,
+            RelationManagers\CompanyRelationshipRelationManager::class,
         ];
     }
 

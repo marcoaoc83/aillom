@@ -16,4 +16,14 @@ class EditCompany extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    public function getContentTabLabel(): ?string
+    {
+        return 'Dados';
+    }
+
+    public function hasCombinedRelationManagerTabsWithContent(): bool
+    {
+        return true;
+    }
 }

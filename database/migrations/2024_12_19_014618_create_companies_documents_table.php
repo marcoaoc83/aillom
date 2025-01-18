@@ -15,8 +15,8 @@ return new class extends Migration
             $table->integer('id', true);
             $table->integer('company_id')->nullable()->index('fk_company_document');
             $table->integer('document_type_id')->index('fk_company_documents_types_document');
-            $table->string('document_type', 100);
             $table->string('description');
+            $table->string('document_number');
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->timestamp('updated_at')->useCurrentOnUpdate()->nullable()->useCurrent();
             $table->softDeletes();
