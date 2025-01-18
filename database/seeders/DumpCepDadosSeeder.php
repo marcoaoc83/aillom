@@ -10,8 +10,33 @@ class DumpCepDadosSeeder extends Seeder
 {
     public function run(): void
     {
-        // Caminho do arquivo SQL
-        $path = database_path('seeders/sql/dump-cep.sql');
+        // Caminho do arquivo compactado
+        $compressedPath = database_path('seeders/sql/dump-cep.sql.gz');
+        $decompressedPath = database_path('seeders/sql/dump-cep.sql');
+
+        // Verifica se o arquivo descompactado já existe
+        if (!file_exists($decompressedPath)) {
+            $this->command->info('Descompactando o arquivo SQL...');
+
+            // Comando para descompactar o arquivo
+            $decompressCommand = [
+                'gunzip',
+                '-c',
+                $compressedPath,
+                '>',
+                $decompressedPath
+            ];
+
+            // Executa o comando de descompactação
+            $process = Process::fromShellCommandline(implode(' ', $decompressCommand));
+            try {
+                $process->mustRun();
+                $this->command->info('Arquivo descompactado com sucesso.');
+            } catch (ProcessFailedException $exception) {
+                $this->command->error('Falha ao descompactar o arquivo: ' . $exception->getMessage());
+                return;
+            }
+        }
 
         // Configurações do banco de dados
         $database = config('database.connections.mysql.database');
@@ -29,7 +54,7 @@ class DumpCepDadosSeeder extends Seeder
             "-P{$port}",
             $database,
             "-e",
-            "source {$path}"
+            "source {$decompressedPath}"
         ];
 
         // Executa o processo
@@ -45,6 +70,5 @@ class DumpCepDadosSeeder extends Seeder
             $this->command->line($process->getOutput());
             $this->command->line($process->getErrorOutput());
         }
-
     }
 }
