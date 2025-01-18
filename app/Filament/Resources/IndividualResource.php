@@ -104,7 +104,6 @@ class IndividualResource extends BaseResource
     }
 
 
-
     public static function table(Tables\Table $table): Tables\Table
     {
         return $table
@@ -121,7 +120,7 @@ class IndividualResource extends BaseResource
                     ->query(function (Builder $query, array $data) {
                         return $query->when(
                             $data['name'] ?? null,
-                            fn ($query, $name) => $query->where('name', 'like', "%{$name}%")
+                            fn($query, $name) => $query->where('name', 'like', "%{$name}%")
                         );
                     }),
 

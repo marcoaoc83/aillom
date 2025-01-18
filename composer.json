@@ -18,6 +18,7 @@
         "guava/filament-icon-picker": "^2.0",
         "hasnayeen/themes": "^3.0",
         "husam-tariq/filament-database-schedule": "^2.0",
+        "joaopaulolndev/filament-edit-profile": "^1.0",
         "laravel/framework": "^11.31",
         "laravel/horizon": "^5.29",
         "laravel/pulse": "^1.2",

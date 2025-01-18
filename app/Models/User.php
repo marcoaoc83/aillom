@@ -27,6 +27,7 @@ class User extends Authenticatable implements AuditableContract
         'individual_id',
         'email',
         'password',
+        'avatar_url',
     ];
 
     /**
@@ -74,5 +75,9 @@ class User extends Authenticatable implements AuditableContract
     {
         return 'login';
     }
-
+    public function getAvatarUrlAttribute($value): string
+    {
+        // Retorna o valor com "storage/" no início, se não estiver presente
+        return str_starts_with($value, 'storage/') ? $value : "storage/{$value}";
+    }
 }
