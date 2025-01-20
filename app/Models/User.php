@@ -77,6 +77,7 @@ class User extends Authenticatable implements AuditableContract
     }
     public function getAvatarUrlAttribute($value): string
     {
+        if(!$value) return '';
         $url=config('config.url');
         return str_starts_with($value, 'storage/') ? $url.'/'.$value : $url."/storage/{$value}";
     }

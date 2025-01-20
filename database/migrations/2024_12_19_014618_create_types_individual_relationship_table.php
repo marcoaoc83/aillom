@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('types_individual_relationship', function (Blueprint $table) {
             $table->integer('id', true);
             $table->string('description', 100);
-            $table->unsignedInteger('inverse_relationship_id')->nullable(); // Novo campo
+            $table->integer('inverse_relationship_id')->nullable(); // Novo campo
             $table->foreign('inverse_relationship_id')
                 ->references('id')
                 ->on('types_individual_relationship')

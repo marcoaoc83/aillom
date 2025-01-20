@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('individual_address', function (Blueprint $table) {
             $table->foreign(['address_id'], 'fk_address')->references(['id'])->on('addresses')->onUpdate('restrict')->onDelete('cascade');
             $table->foreign(['address_type_id'], 'fk_address_type')->references(['id'])->on('types_address')->onUpdate('restrict')->onDelete('restrict');
-            $table->foreign(['individual_id'], 'fk_individual_address')->references(['id'])->on('individual')->onUpdate('restrict')->onDelete('cascade');
+            $table->foreign(['individual_id'], 'fk_individual_address')->references(['id'])->on('individuals')->onUpdate('restrict')->onDelete('cascade');
         });
     }
 

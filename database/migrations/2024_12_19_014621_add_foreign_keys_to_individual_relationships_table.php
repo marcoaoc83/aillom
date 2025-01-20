@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('individual_relationships', function (Blueprint $table) {
-            $table->foreign(['individual_id1'], 'fk_individual1')->references(['id'])->on('individual')->onUpdate('restrict')->onDelete('cascade');
-            $table->foreign(['individual_id2'], 'fk_individual2')->references(['id'])->on('individual')->onUpdate('restrict')->onDelete('cascade');
+            $table->foreign(['individual_id1'], 'fk_individual1')->references(['id'])->on('individuals')->onUpdate('restrict')->onDelete('cascade');
+            $table->foreign(['individual_id2'], 'fk_individual2')->references(['id'])->on('individuals')->onUpdate('restrict')->onDelete('cascade');
             $table->foreign(['relationship_type_id'], 'fk_relationship_type')->references(['id'])->on('types_individual_relationship')->onUpdate('restrict')->onDelete('set null');
         });
     }

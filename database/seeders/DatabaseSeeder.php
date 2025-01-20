@@ -21,8 +21,9 @@ class DatabaseSeeder extends Seeder
         $this->call(TypesDocumentTableSeeder::class);
         $this->call(TypesIndividualRelationshipTableSeeder::class);
         $this->call(CompaniesLevelTableSeeder::class);
-        $this->call(SuperAdminSeeder::class);
-        $this->command->info('DatabaseSeeder concluído com sucesso!');
         $this->call(RolesTableSeeder::class);
+        $this->call(SuperAdminSeeder::class);
+
+        $this->command->info('DatabaseSeeder concluído com sucesso!');
     }
 }

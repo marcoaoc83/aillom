@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('individual', function (Blueprint $table) {
+        Schema::table('individuals', function (Blueprint $table) {
             $table->foreign(['birth_place_id'], 'fk_birth_place')->references(['id'])->on('addresses')->onUpdate('restrict')->onDelete('restrict');
             $table->foreign(['gender_id'], 'fk_gender')->references(['id'])->on('individual_genders')->onUpdate('restrict')->onDelete('restrict');
             $table->foreign(['naturalness_id'], 'fk_naturalness')->references(['id'])->on('addresses')->onUpdate('restrict')->onDelete('restrict');
