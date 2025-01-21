@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
         $this->call(CompaniesLevelTableSeeder::class);
         $this->call(RolesTableSeeder::class);
         $this->call(SuperAdminSeeder::class);
-
+        $this->call(IndividualGendersTableSeeder::class);
         $this->command->info('DatabaseSeeder concluído com sucesso!');
+
     }
 }
