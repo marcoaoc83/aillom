@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\DB;
 class IndividualGendersTableSeeder extends Seeder
 {
 
@@ -14,12 +14,12 @@ class IndividualGendersTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
-        \DB::table('individual_genders')->delete();
-        
-        \DB::table('individual_genders')->insert(array (
-            0 => 
+
+        DB::table('individual_genders')->delete();
+
+        DB::table('individual_genders')->insert(array (
+            0 =>
             array (
                 'id' => 1,
                 'description' => 'Masculino',
@@ -27,7 +27,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'description' => 'Feminino',
@@ -35,7 +35,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'description' => 'Não-binário',
@@ -43,7 +43,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'description' => 'Não informar',
@@ -51,7 +51,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-09 19:36:06',
                 'deleted_at' => NULL,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 5,
                 'description' => 'Outro',
@@ -59,7 +59,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 6,
                 'description' => 'Agênero',
@@ -67,7 +67,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 7,
                 'description' => 'Bigênero',
@@ -75,7 +75,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 8,
                 'description' => 'Gênero Fluido',
@@ -83,7 +83,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 9,
                 'description' => 'Demiboy',
@@ -91,7 +91,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 10,
                 'description' => 'Demigirl',
@@ -99,7 +99,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 11,
                 'description' => 'Gênero Neutro',
@@ -107,7 +107,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 12,
                 'description' => 'Gênero Queer',
@@ -115,7 +115,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 13,
                 'description' => 'Two-Spirit',
@@ -123,7 +123,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 14,
                 'description' => 'Intersexo',
@@ -131,7 +131,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 15,
                 'description' => 'Pangênero',
@@ -139,7 +139,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 16,
                 'description' => 'Transmasculino',
@@ -147,7 +147,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 17,
                 'description' => 'Transfeminino',
@@ -155,7 +155,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 18,
                 'description' => 'Homem Trans',
@@ -163,7 +163,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 19,
                 'description' => 'Mulher Trans',
@@ -171,7 +171,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 20,
                 'description' => 'Travesti',
@@ -179,7 +179,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            20 => 
+            20 =>
             array (
                 'id' => 21,
                 'description' => 'Genderflux',
@@ -187,7 +187,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            21 => 
+            21 =>
             array (
                 'id' => 22,
                 'description' => 'Andrógino',
@@ -195,7 +195,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            22 => 
+            22 =>
             array (
                 'id' => 23,
                 'description' => 'Neutrois',
@@ -203,7 +203,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            23 => 
+            23 =>
             array (
                 'id' => 24,
                 'description' => 'Questionando',
@@ -211,7 +211,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            24 => 
+            24 =>
             array (
                 'id' => 25,
                 'description' => 'Sem Gênero',
@@ -219,7 +219,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'updated_at' => '2025-01-06 15:33:40',
                 'deleted_at' => NULL,
             ),
-            25 => 
+            25 =>
             array (
                 'id' => 26,
                 'description' => 'Gênero Ausente',
@@ -228,7 +228,7 @@ class IndividualGendersTableSeeder extends Seeder
                 'deleted_at' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }
