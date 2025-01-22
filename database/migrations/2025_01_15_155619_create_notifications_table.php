@@ -12,10 +12,25 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('notifications', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $driver = Schema::getConnection()->getDriverName();
+
+            // Criação dos campos comuns
+            if ($driver === 'pgsql') {
+                $table->uuid('id')->primary();
+            } else {
+                $table->id();
+            }
+
             $table->string('type');
             $table->morphs('notifiable');
-            $table->text('data');
+
+            // Definir o tipo correto para a coluna 'data' conforme o banco de dados
+            if (in_array($driver, ['pgsql', 'mysql'])) {
+                $table->json('data'); // MySQL e PostgreSQL suportam JSON
+            } else {
+                $table->text('data'); // SQL Server e SQLite usam TEXT
+            }
+
             $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });

@@ -32,13 +32,13 @@ return new class extends Migration
             $driver = DB::getDriverName();
 
             if ($driver === 'mysql') {
-                $table->string('postal_code_numbers')
+                $table->string('postal_code_numbers')->nullable()
                     ->storedAs("REGEXP_REPLACE(postal_code, '[^0-9]', '')"); // MySQL
             } elseif ($driver === 'pgsql') {
-                $table->string('postal_code_numbers')
+                $table->string('postal_code_numbers')->nullable()
                     ->storedAs("REGEXP_REPLACE(postal_code, '[^0-9]', '', 'g')"); // PostgreSQL
             } elseif ($driver === 'sqlsrv') {
-                $table->string('postal_code_numbers')
+                $table->string('postal_code_numbers')->nullable()
                     ->storedAs("REPLACE(REPLACE(REPLACE(postal_code, '-', ''), '.', ''), ' ', '')")
                     ->persisted(); // SQL Server
             } else {

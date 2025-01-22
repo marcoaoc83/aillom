@@ -16,17 +16,15 @@ class DumpCepDadosSeeder extends Seeder
         $password = config('database.connections.' . config('database.default') . '.password');
         $host = config('database.connections.' . config('database.default') . '.host');
         $port = config('database.connections.' . config('database.default') . '.port');
-        $driver = config('database.default'); // Banco de dados em uso (mysql, pgsql, sqlsrv, sqlite)
+        $driver = config('database.default'); // Driver em uso
 
         // Caminho do arquivo compactado e descompactado
         $compressedPath = database_path('seeders/sql/dump-cep.sql.gz');
         $decompressedPath = database_path('seeders/sql/dump-cep.sql');
 
-        // Verifica se o arquivo descompactado já existe
+        // Descompactar o arquivo SQL, se necessário
         if (!file_exists($decompressedPath)) {
             $this->command->info('Descompactando o arquivo SQL...');
-
-            // Comando para descompactar o arquivo
             $process = Process::fromShellCommandline(sprintf('gunzip -c %s > %s', escapeshellarg($compressedPath), escapeshellarg($decompressedPath)));
 
             try {
@@ -38,9 +36,8 @@ class DumpCepDadosSeeder extends Seeder
             }
         }
 
-        // Importa o arquivo SQL de acordo com o banco de dados em uso
+        // Importar o arquivo SQL para o banco de dados
         $this->command->info('Iniciando a importação do arquivo SQL de CEP...');
-
         switch ($driver) {
             case 'mysql':
                 $this->importForMysql($decompressedPath, $username, $password, $host, $port, $database);
@@ -59,12 +56,12 @@ class DumpCepDadosSeeder extends Seeder
                 break;
 
             default:
-                $this->command->error('Driver de banco de dados não suportado: ' . $driver);
+                $this->command->error("Driver de banco de dados não suportado: {$driver}");
         }
     }
 
     /**
-     * Importa para MySQL.
+     * Importar para MySQL.
      */
     private function importForMysql(string $filePath, string $username, string $password, string $host, string $port, string $database): void
     {
@@ -82,15 +79,19 @@ class DumpCepDadosSeeder extends Seeder
     }
 
     /**
-     * Importa para PostgreSQL.
+     * Importar para PostgreSQL.
      */
     private function importForPostgresql(string $filePath, string $username, string $password, string $host, string $port, string $database): void
     {
-        // Define a variável de ambiente para a senha do PostgreSQL
-        putenv("PGPASSWORD={$password}");
+        // Verificar se o arquivo existe
+        if (!file_exists($filePath)) {
+            throw new \Exception("O arquivo SQL {$filePath} não foi encontrado.");
+        }
 
+        // Definir o comando com PGPASSWORD
         $command = sprintf(
-            'psql -U %s -h %s -p %s -d %s -f %s',
+            'PGPASSWORD=%s psql -U %s -h %s -p %s -d %s -f %s',
+            escapeshellarg($password),
             escapeshellarg($username),
             escapeshellarg($host),
             escapeshellarg($port),
@@ -102,7 +103,7 @@ class DumpCepDadosSeeder extends Seeder
     }
 
     /**
-     * Importa para SQL Server.
+     * Importar para SQL Server.
      */
     private function importForSqlServer(string $filePath, string $username, string $password, string $host, string $port, string $database): void
     {
@@ -121,7 +122,7 @@ class DumpCepDadosSeeder extends Seeder
     }
 
     /**
-     * Importa para SQLite.
+     * Importar para SQLite.
      */
     private function importForSqlite(string $filePath, string $database): void
     {
@@ -147,6 +148,8 @@ class DumpCepDadosSeeder extends Seeder
             $this->command->info("Importação para {$driver} concluída com sucesso.");
         } catch (ProcessFailedException $exception) {
             $this->command->error("Falha na importação para {$driver}: " . $exception->getMessage());
+            $this->command->line($exception->getProcess()->getOutput());
+            $this->command->line($exception->getProcess()->getErrorOutput());
         }
     }
 }
