@@ -66,15 +66,15 @@ class DumpCepDadosSeeder extends Seeder
                 break;
 
             case 'pgsql':
-                $this->importForPostgresql($compressedPathCsv, $username, $password, $host, $port, $database);
+                $this->importForPostgresql($decompressedPathCsv, $username, $password, $host, $port, $database);
                 break;
 
             case 'sqlsrv':
-                $this->importForSqlServer($compressedPathCsv, $username, $password, $host, $port, $database);
+                $this->importForSqlServer($decompressedPathCsv, $username, $password, $host, $port, $database);
                 break;
 
             case 'sqlite':
-                $this->importForSqlite($compressedPathCsv, $database);
+                $this->importForSqlite($decompressedPathCsv, $database);
                 break;
 
             default:
