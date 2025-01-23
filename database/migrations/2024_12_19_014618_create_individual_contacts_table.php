@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('description');
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->timestamp('updated_at')->useCurrentOnUpdate()->nullable()->useCurrent();
+            $table->softDeletes();
         });
     }
 
