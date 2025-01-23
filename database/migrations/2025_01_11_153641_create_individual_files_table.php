@@ -15,7 +15,7 @@ return new class extends Migration
             $table->text('description')->nullable(); // Descrição do arquivo
             $table->string('file_path'); // Caminho do arquivo
             $table->timestamps(); // Campos created_at e updated_at
-
+            $table->softDeletes();
             // Chave estrangeira e relacionamento
             $table->foreign('individual_id')->references('id')->on('individuals')->onDelete('cascade');
         });
