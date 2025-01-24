@@ -25,7 +25,7 @@ A utilização da **Aillom** segue as regras abaixo:
 ### **Realizar Pagamentos**
 
 - Para adquirir a licença comercial, pague o valor de $10 utilizando o link abaixo:
-    - [**Pagar Licença Comercial**](https://www.paypal.me/marcoaoc83/10usd)
+    - [**Pagar Licença Comercial**](https://www.paypal.com/donate/?business=EH9GJ6VXDQTQL&amount=10&no_recurring=0&currency_code=USD)
 
 ---
 
