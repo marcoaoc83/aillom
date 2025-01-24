@@ -13,6 +13,7 @@ class DatabaseDiagram extends Page
     protected static string $view = 'filament.pages.database-diagram';
     protected static ?string $navigationLabel = 'Diagrama';
     protected static ?string $navigationGroup = 'Developer';
+    protected static ?string $title = 'Diagrama';
 
     protected static ?int $navigationSort = 78;
 
