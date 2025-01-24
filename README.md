@@ -1,68 +1,82 @@
-# aillom
 
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+---
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# **Aillom**
 
-## About Laravel
+**Aillom** é uma ferramenta desenvolvida com **Laravel 11** e **Filament v3**, projetada para auxiliar no desenvolvimento ágil de aplicações web. Com um conjunto de funcionalidades bem estruturadas, Aillom fornece uma base sólida para a criação e gerenciamento de projetos, otimizando fluxos de trabalho e melhorando a produtividade.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## **Recursos**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Desenvolvida com **Laravel 11** e **Filament v3**.
+- Baseada em tecnologias modernas para uma experiência eficiente e confiável.
+- Oferece funcionalidades de gerenciamento e desenvolvimento rápido para aplicações web.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## **Licença e Pagamentos**
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+A utilização da **Aillom** segue as regras abaixo:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. **Uso pessoal ou educacional**: Gratuito.
+2. **Uso comercial**: É necessário adquirir uma licença por $10 por instância.
 
-## Laravel Sponsors
+### **Realizar Pagamentos**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- Para adquirir a licença comercial, pague o valor de $10 utilizando o link abaixo:
+    - [**Pagar Licença Comercial**](https://www.paypal.me/marcoaoc83/10usd)
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## **Apoie este projeto**
 
-## Contributing
+Se você deseja apoiar o desenvolvimento da **Aillom**, contribua com doações. Qualquer valor é bem-vindo e ajuda a melhorar continuamente a ferramenta.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### **Doações via PIX**
 
-## Code of Conduct
+- **Chave PIX**: `beca7e6f-465e-443d-8dfc-cb52ca935c13`
+- Ou escaneie o QR Code abaixo para doar:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+![QR Code para Doações](qrcodepix.png)
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## **Instalação**
 
-## License
+Para configurar o projeto, siga o guia completo de instalação disponível no arquivo [**install.md**](install.md).
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## **Pré-requisitos**
+
+Certifique-se de ter os seguintes softwares instalados:
+
+- **PHP** 8.3 ou superior
+- **Composer**
+- **Node.js** e **NPM**
+- Banco de dados:
+    - **MySQL** 8.0+ ou **PostgreSQL** 13+
+- **Redis**
+
+---
+
+## **Links Importantes**
+
+- [Guia de Instalação](install.md)
+- [Laravel 11](https://laravel.com/docs/11.x)
+- [Filament v3](https://filamentphp.com/docs/3.x)
+
+---
+
+## **Contato**
+
+Se você tiver dúvidas, sugestões ou precisar de suporte, entre em contato:
+
+- **E-mail**: [marcoaoc83@gmail.com](mailto:marcoaoc83@gmail.com)
+
+---
+
+> **Nota**: O pagamento da licença comercial ajuda a manter este projeto ativo e acessível para todos. Muito obrigado pelo seu apoio!
+
+---
