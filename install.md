@@ -134,4 +134,17 @@ REDIS_PORT=6379
 
 Agora o projeto estará rodando localmente. Para verificar se o servidor está ativo, acesse:
 
-http://localhost:8085
+[http://localhost:8085](http://localhost:8085)
+
+---
+
+### **Credenciais de Login Inicial**
+
+Após instalar e configurar o projeto, você pode acessar o sistema com as credenciais padrão:
+
+- **Usuário**: `superadmin`
+- **Senha**: `12345`
+
+> **Nota**: Por motivos de segurança, recomendamos alterar a senha do usuário padrão assim que possível.
+
+---
