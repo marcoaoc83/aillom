@@ -65,6 +65,16 @@ class DBuilderResource extends BaseResource
                                             'telescope_entries_tags',
                                             'telescope_monitoring',
                                             'users',
+                                            'level_1_planet',
+                                            'level_2_countries',
+                                            'level_3_states',
+                                            'level_4_cities',
+                                            'level_5_neighborhoods',
+                                            'level_6_streets',
+                                            'notifications',
+                                            'exports',
+                                            'imports',
+                                            'failed_import_rows',
                                         ];
 
                                         // Detecta o driver do banco de dados
