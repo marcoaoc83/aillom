@@ -114,7 +114,7 @@ class DumpCepDadosSeeder extends Seeder
 
         // Comando para desabilitar os gatilhos
         $disableTrigger = sprintf(
-            'PGPASSWORD=%s psql -U %s -h %s -p %s -d %s -c "ALTER TABLE addresses DISABLE TRIGGER ALL;"',
+            'PGPASSWORD=%s psql -U %s -h %s -p %s -d %s -c "ALTER TABLE addresses DISABLE TRIGGER USER;"',
             escapeshellarg($password),
             escapeshellarg($username),
             escapeshellarg($host),
@@ -135,7 +135,7 @@ class DumpCepDadosSeeder extends Seeder
 
         // Comando para reativar os gatilhos
         $enableTrigger = sprintf(
-            'PGPASSWORD=%s psql -U %s -h %s -p %s -d %s -c "ALTER TABLE addresses ENABLE TRIGGER ALL;"',
+            'PGPASSWORD=%s psql -U %s -h %s -p %s -d %s -c "ALTER TABLE addresses ENABLE TRIGGER USER;"',
             escapeshellarg($password),
             escapeshellarg($username),
             escapeshellarg($host),
@@ -185,7 +185,7 @@ class DumpCepDadosSeeder extends Seeder
     /**
      * Executa o comando no terminal.
      */
-    private function runCommand(string $command, string $driver, string $info = null): void
+    private function runCommand(string $command, string $driver, ?string $info = null): void
     {
         $process = Process::fromShellCommandline($command);
         $process->setTimeout(0);

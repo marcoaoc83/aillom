@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,16 +11,10 @@ use Spatie\Permission\Traits\HasRoles;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 use OwenIt\Auditing\Auditable;
 
-class User extends Authenticatable implements AuditableContract
+class User extends Authenticatable implements AuditableContract, FilamentUser
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoles, Auditable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'login',
@@ -30,21 +24,11 @@ class User extends Authenticatable implements AuditableContract
         'avatar_url',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -62,7 +46,6 @@ class User extends Authenticatable implements AuditableContract
     {
         $superAdminRoleName = config('filament-shield.super_admin.name', 'super_admin');
 
-        // Se estiver usando o Spatie Permissions:
         return $this->hasRole($superAdminRoleName);
     }
 
@@ -75,10 +58,17 @@ class User extends Authenticatable implements AuditableContract
     {
         return 'login';
     }
+
     public function getAvatarUrlAttribute($value): string
     {
         if(!$value) return '';
         $url=config('config.url');
         return str_starts_with($value, 'storage/') ? $url.'/'.$value : $url."/storage/{$value}";
+    }
+
+    // 📌 Adicione este método para que o Filament saiba se o usuário pode acessar o painel
+    public function canAccessPanel(\Filament\Panel $panel): bool
+    {
+        return true;
     }
 }

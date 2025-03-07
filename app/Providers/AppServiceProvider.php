@@ -7,6 +7,7 @@ use Filament\Facades\Filament;
 
 use HusamTariq\FilamentDatabaseSchedule\FilamentDatabaseSchedulePlugin;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use Illuminate\Support\Facades\Event;
@@ -26,7 +27,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
+        Filament::serving(function () {
+            Gate::define('viewFilament', function ($user) {
+                return true;
+            });
+        });
         Livewire::component(
             'filament.resources.user.relation-managers.audits-relation-manager',
             \App\Filament\Resources\UserResource\RelationManagers\AuditsRelationManager::class
